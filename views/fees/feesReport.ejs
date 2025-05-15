@@ -1,0 +1,25 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>Fees Report</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Amount Paid</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let fee of feesReports) { %>
+            <tr>
+              <td><%= fee.studentId %></td>
+              <td><%= fee.name %></td>
+              <td><%= fee.amount %></td>
+              <td><%= fee.date %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>

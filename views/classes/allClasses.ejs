@@ -1,0 +1,25 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>All Classes</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Class ID</th>
+            <th>Class Name</th>
+            <th>Teacher</th>
+            <th>Room</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let cls of classes) { %>
+            <tr>
+              <td><%= cls.id %></td>
+              <td><%= cls.name %></td>
+              <td><%= cls.teacher %></td>
+              <td><%= cls.room %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>

@@ -1,0 +1,181 @@
+<!-- Sidebar -->
+<aside class="bg-dark text-white flex-shrink-0 p-3" style="width: 250px;">
+  <a href="#" class="d-flex align-items-center mb-3 text-white text-decoration-none">
+    <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" width="32" height="32" class="me-2" />
+    <span class="fs-5 fw-semibold">My App</span>
+  </a>
+
+  <ul class="nav nav-pills flex-column mb-auto">
+    <!-- Student Section -->
+    <li class="nav-item">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#students-collapse">
+        <span><i class="fas fa-user-graduate me-2"></i>Students</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="students-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/student/allStudents" class="nav-link text-white">All Students</a></li>
+          <li><a href="/student/create" class="nav-link text-white">Add Student</a></li>
+          <li><a href="/student/attendance" class="nav-link text-white">Attendance</a></li>
+          <li><a href="/student/gradesReports" class="nav-link text-white">Grades/Reports</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Teachers Section -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#teachers-collapse">
+        <span><i class="fas fa-chalkboard-teacher me-2"></i>Teachers</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="teachers-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/teacher/allTeachers" class="nav-link text-white">All Teachers</a></li>
+          <li><a href="/teacher/addTeacher" class="nav-link text-white">Add Teacher</a></li>
+          <li><a href="/teacher/attendance" class="nav-link text-white">Attendance</a></li>
+          <li><a href="/teacher/classAssignments" class="nav-link text-white">Class Assignments</a></li>
+          <li><a href="/teacher/schedules" class="nav-link text-white">Schedules</a></li>
+          <li><a href="/teacher/reports" class="nav-link text-white">Reports</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Classes -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#classes-collapse">
+        <span><i class="fas fa-school me-2"></i>Classes</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="classes-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/classes/allClasses" class="nav-link text-white">All Classes</a></li>
+          <li><a href="/classes/addClass" class="nav-link text-white">Add Class</a></li>
+          <li><a href="/classes/classTimetable" class="nav-link text-white">Class Timetable</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Subjects -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#subjects-collapse">
+        <span><i class="fas fa-book me-2"></i>Subjects</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="subjects-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/subjects/allSubjects" class="nav-link text-white">All Subjects</a></li>
+          <li><a href="/subjects/assignToClass" class="nav-link text-white">Assign to Class</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Exams -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#exams-collapse">
+        <span><i class="fas fa-clipboard me-2"></i>Exams</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="exams-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/exams/examSchedule" class="nav-link text-white">Exam Schedule</a></li>
+          <li><a href="/exams/marksEntry" class="nav-link text-white">Marks Entry</a></li>
+          <li><a href="/exams/reportCards" class="nav-link text-white">Report Cards</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Fees -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#fees-collapse">
+        <span><i class="fas fa-money-bill me-2"></i>Fees</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="fees-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/fees/collectFees" class="nav-link text-white">Collect Fees</a></li>
+          <li><a href="/fees/feesReport" class="nav-link text-white">Fees Report</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Library -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#library-collapse">
+        <span><i class="fas fa-book-reader me-2"></i>Library</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="library-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/library/booksList" class="nav-link text-white">Books List</a></li>
+          <li><a href="/library/issueReturn" class="nav-link text-white">Issue/Return</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Events -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#events-collapse">
+        <span><i class="fas fa-calendar-alt me-2"></i>Events</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="events-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/events/noticeBoard" class="nav-link text-white">Notice Board</a></li>
+          <li><a href="/events/calendar" class="nav-link text-white">Calendar</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Users -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#users-collapse">
+        <span><i class="fas fa-users me-2"></i>Users</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="users-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/users/admins" class="nav-link text-white">Admins</a></li>
+          <li><a href="/users/staff" class="nav-link text-white">Staff</a></li>
+          <li><a href="/users/parents" class="nav-link text-white">Parents</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+
+  </ul>
+
+  <!-- Transportation -->
+  <ul class="nav nav-pills flex-column mb-auto mt-2">
+    <li class="nav-item">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#transportation-collapse">
+        <span><i class="fas fa-bus me-2"></i>Transportation</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="transportation-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/transportation/routes" class="nav-link text-white">Bus Routes</a></li>
+          <li><a href="/transportation/vehicles" class="nav-link text-white">Drivers</a></li>
+          <li><a href="#" class="nav-link text-white">Vehicle Maintenance</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+
+  <!-- My Section -->
+  <ul class="nav nav-pills flex-column mb-auto mt-2">
+    <li class="nav-item">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#mysection-collapse">
+        <span><i class="fas fa-user me-2"></i>My Section</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="mysection-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/mySection/profile" class="nav-link text-white">Profile</a></li>
+          <li><a href="/mySection/settings" class="nav-link text-white">Settings</a></li>
+          <li><a href="#" class="nav-link text-white">Logout</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+  
+</aside>

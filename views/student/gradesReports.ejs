@@ -1,0 +1,38 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container mt-4">
+  <h1>Student Grades and Reports</h1>
+  <form action="/student/gradesReports">
+    <table class="table table-bordered table-hover mt-3">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Age</th>
+          <th>Grade</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% students.forEach(student => { %>
+          <tr>
+            <td><%= student.id %></td>
+            <td><%= student.name %></td>
+            <td><%= student.last %></td>
+            <td><%= student.age %></td>
+            <td>
+              <input type="text" class="form-control" name="grade_<%= student.id %>" placeholder="Enter grade" />
+            </td>
+            <td>
+              <textarea class="form-control" name="report_<%= student.id %>" rows="2" placeholder="Enter report"></textarea>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Submit Grades & Reports</button>
+    </div>
+  </form>
+</div>

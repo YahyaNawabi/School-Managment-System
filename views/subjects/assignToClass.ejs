@@ -1,0 +1,16 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+  <h1>Assign Subject to Class</h1>
+  <form action="/subjects/assignToClass" method="POST">
+    <div class="mb-3">
+      <label for="subject" class="form-label">Subject Name</label>
+      <input type="text" class="form-control" id="subject" name="subject" required>
+    </div>
+    <div class="mb-3">
+      <label for="class" class="form-label">Class Name</label>
+      <input type="text" class="form-control" id="class" name="class" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Assign</button>
+  </form>
+</div>

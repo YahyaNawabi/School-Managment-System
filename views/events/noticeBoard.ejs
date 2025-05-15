@@ -1,0 +1,13 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>Notice Board</h1>
+    <ul class="list-group">
+      <% for (let notice of notices) { %>
+        <li class="list-group-item">
+          <strong><%= notice.title %></strong> - <%= notice.date %>
+          <p><%= notice.content %></p>
+        </li>
+      <% } %>
+    </ul>
+</div>

@@ -1,0 +1,27 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>Report Cards</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Marks</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let report of reportCards) { %>
+            <tr>
+              <td><%= report.studentId %></td>
+              <td><%= report.name %></td>
+              <td><%= report.subject %></td>
+              <td><%= report.marks %></td>
+              <td><%= report.grade %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>

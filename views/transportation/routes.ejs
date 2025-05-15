@@ -1,0 +1,23 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>Transportation Routes</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Route ID</th>
+            <th>Route Name</th>
+            <th>Stops</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let route of routes) { %>
+            <tr>
+              <td><%= route.id %></td>
+              <td><%= route.name %></td>
+              <td><%= route.stops.join(", ") %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>

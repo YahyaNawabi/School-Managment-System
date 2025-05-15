@@ -1,0 +1,96 @@
+<!-- Navbar for School Management System -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
+  <div class="container-fluid">
+    <!-- Left Side: Logo and School Name -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16" class="me-2">
+        <path d="M6.5 15.5v-2h3v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5zm-3-3v-1h1v1h-1zm0-2v-1h1v1h-1zm0-2v-1h1v1h-1zm0-2v-1h1v1h-1zm2 6v-1h1v1h-1zm0-2v-1h1v1h-1zm0-2v-1h1v1h-1zm0-2v-1h1v1h-1zm2 6v-1h1v1h-1zm0-2v-1h1v1h-1zm0-2v-1h1v1h-1zm0-2v-1h1v1h-1z"/>
+      </svg>
+      <span class="fs-4 fw-bold">School Management System</span>
+    </a>
+
+    <!-- Left Side: Search Form -->
+    <div class="d-flex flex-grow-1">
+      <form class="d-flex w-100" role="search" action="/search" method="GET">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search students, teachers, classes..." aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Side: Navbar Links -->
+    <div class="d-flex align-items-center">
+
+      <!-- Quick Access Links -->
+      <div class="nav-item dropdown mx-2">
+        <a class="nav-link" href="#" id="quickAccessDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-tachometer-alt"></i> Quick Access
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quickAccessDropdown">
+          <li><a class="dropdown-item" href="/student/attendance">Attendance</a></li>
+          <li><a class="dropdown-item" href="/exams/examSchedule">Exams</a></li>
+          <li><a class="dropdown-item" href="/teacher/reports">Reports</a></li>
+        </ul>
+      </div>
+
+      <!-- Help/Support Dropdown -->
+      <div class="nav-item dropdown mx-2">
+        <a class="nav-link" href="#" id="helpDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-question-circle"></i> Help
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="helpDropdown">
+          <li><a class="dropdown-item" href="/help/userGuide">User Guide</a></li>
+          <li><a class="dropdown-item" href="/help/support">Support</a></li>
+          <li><a class="dropdown-item" href="/help/contactAdmin">Contact Admin</a></li>
+        </ul>
+      </div>
+
+      <!-- Messages Icon -->
+      <div class="nav-item dropdown mx-2">
+        <a class="nav-link" href="#" id="messageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-envelope"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="messageDropdown">
+          <li><div class="dropdown-header">Messages</div></li>
+          <li><a class="dropdown-item" href="#">Jimmy Denis: How are you?</a></li>
+          <li><a class="dropdown-item" href="#">Chad: Ok, Thanks!</a></li>
+          <li><a class="dropdown-item" href="#">Jhon Doe: Ready for the meeting...</a></li>
+          <li><a class="dropdown-item" href="#">Talha: Hi, Apa Kabar?</a></li>
+          <li><a class="dropdown-item text-center" href="#">See all messages <i class="fa fa-angle-right"></i></a></li>
+        </ul>
+      </div>
+
+      <!-- Notifications Icon -->
+      <div class="nav-item dropdown mx-2">
+        <a class="nav-link" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-bell"></i>
+          <span class="badge bg-danger">4</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifDropdown">
+          <li><div class="dropdown-header">You have 4 new notifications</div></li>
+          <li><a class="dropdown-item" href="#">New user registered</a></li>
+          <li><a class="dropdown-item" href="#">Rahmad commented on Admin</a></li>
+          <li><a class="dropdown-item" href="#">Reza sent you messages</a></li>
+          <li><a class="dropdown-item" href="#">Farrah liked Admin</a></li>
+          <li><a class="dropdown-item text-center" href="#">See all notifications <i class="fa fa-angle-right"></i></a></li>
+        </ul>
+      </div>
+
+      <!-- User Profile Icon -->
+      <div class="nav-item dropdown mx-2">
+        <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-user"></i> <span>Dear, User</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" href="/mySection/profile">My Profile</a></li>
+          <li><a class="dropdown-item" href="/mySection/inbox">Inbox</a></li>
+          <li><a class="dropdown-item" href="/mySection/settings">Account Settings</a></li>
+          <li><div class="dropdown-divider"></div></li>
+          <li><a class="dropdown-item" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</nav>

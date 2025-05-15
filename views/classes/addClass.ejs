@@ -1,0 +1,24 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+  <h1>Add New Class</h1>
+  <form action="/classes/addClass" method="POST">
+    <div class="mb-3">
+      <label for="id" class="form-label">Class ID</label>
+      <input type="number" class="form-control" id="id" name="id" required>
+    </div>
+    <div class="mb-3">
+      <label for="name" class="form-label">Class Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="teacher" class="form-label">Class Teacher</label>
+      <input type="text" class="form-control" id="teacher" name="teacher" required>
+    </div>
+    <div class="mb-3">
+      <label for="room" class="form-label">Room Number</label>
+      <input type="text" class="form-control" id="room" name="room" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Class</button>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>Teacher Reports</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Teacher ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Report Type</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let teacher of teachers) { %>
+            <tr>
+              <td><%= teacher.id %></td>
+              <td><%= teacher.name %> <%= teacher.last %></td>
+              <td>Performance</td>
+              <td><%= new Date().toLocaleDateString() %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>

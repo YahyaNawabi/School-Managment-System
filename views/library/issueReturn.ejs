@@ -1,0 +1,23 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+  <h1>Issue/Return Book</h1>
+  <form action="/library/issueReturn" method="POST">
+    <div class="mb-3">
+      <label for="bookId" class="form-label">Book ID</label>
+      <input type="number" class="form-control" id="bookId" name="bookId" required>
+    </div>
+    <div class="mb-3">
+      <label for="studentId" class="form-label">Student ID</label>
+      <input type="number" class="form-control" id="studentId" name="studentId" required>
+    </div>
+    <div class="mb-3">
+      <label for="action" class="form-label">Action</label>
+      <select class="form-select" id="action" name="action" required>
+        <option value="issue">Issue</option>
+        <option value="return">Return</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

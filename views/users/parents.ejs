@@ -1,0 +1,25 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>Parents</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Parent ID</th>
+            <th>Name</th>
+            <th>Child Name</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let parent of parents) { %>
+            <tr>
+              <td><%= parent.id %></td>
+              <td><%= parent.name %></td>
+              <td><%= parent.childName %></td>
+              <td><%= parent.contact %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>

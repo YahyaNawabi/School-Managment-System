@@ -1,0 +1,25 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+    <h1>Vehicles</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Vehicle ID</th>
+            <th>Type</th>
+            <th>Driver</th>
+            <th>Capacity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let vehicle of vehicles) { %>
+            <tr>
+              <td><%= vehicle.id %></td>
+              <td><%= vehicle.type %></td>
+              <td><%= vehicle.driver %></td>
+              <td><%= vehicle.capacity %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>
