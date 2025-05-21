@@ -1,0 +1,91 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container mt-4">
+    <h2>Search Results for "<%= query %>"</h2>
+
+    <% if (students.length === 0 && teachers.length === 0 && books.length === 0) { %>
+        <p>No results found.</p>
+    <% } else { %>
+
+        <% if (students.length > 0) { %>
+            <h3>Students</h3>
+            <div class="table-responsive mb-4">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% students.forEach(student => { %>
+                            <tr>
+                                <td><%= student.id %></td>
+                                <td><%= student.name %></td>
+                                <td><%= student.last %></td>
+                                <td><%= student.age %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+
+        <% if (teachers.length > 0) { %>
+            <h3>Teachers</h3>
+            <div class="table-responsive mb-4">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Subject</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% teachers.forEach(teacher => { %>
+                            <tr>
+                                <td><%= teacher.id %></td>
+                                <td><%= teacher.name %></td>
+                                <td><%= teacher.last %></td>
+                                <td><%= teacher.age %></td>
+                                <td><%= teacher.subject || 'N/A' %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+
+        <% if (books.length > 0) { %>
+            <h3>Books</h3>
+            <div class="table-responsive mb-4">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Copies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% books.forEach(book => { %>
+                            <tr>
+                                <td><%= book.id %></td>
+                                <td><%= book.title %></td>
+                                <td><%= book.author %></td>
+                                <td><%= book.copies %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+
+    <% } %>
+</div>

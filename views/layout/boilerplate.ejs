@@ -12,21 +12,24 @@
 </head>
 <body class="bg-light">
 
+  <div class="container-fluid p-0 position-relative ">
 
-  <!-- <header class="navbar navbar-expand navbar-light bg-white border-bottom fixed-top"> -->
-  <% if (typeof hideHeader === 'undefined' || !hideHeader) { %>
-    <%- include('../include/header.ejs') %>
-  <% } %>
-  <!-- </header -->
+    <!-- <header class="navbar navbar-expand navbar-light bg-white border-bottom fixed-top"> -->
+    <% if (typeof hideHeader === 'undefined' || !hideHeader) { %>
+      <%- include('../include/header.ejs') %>
+    <% } %>
+    <!-- </header -->
+
+  </div>
 
   <div class="d-flex">
   <% if (typeof hideSidebar === 'undefined' || !hideSidebar) { %>
-    <aside class="flex-shrink-0 bg-dark text-white vh-100 position-fixed" style="width: 250px; overflow-y: auto;">
+    <aside id="sidebar" class="flex-shrink-0 bg-dark text-white vh-100 position-fixed" style="width: 250px; overflow-y: auto; transition: transform 0.3s ease;">
       <%- include('../include/sidebar.ejs') %>
     </aside>
   <% } %>
 
-    <main class="flex-grow-1 ms-250 p-3" style="margin-left: 250px; margin-top: 56px;">
+    <main id="mainContent" class="flex-grow-1 ms-250 p-3" style="margin-left: 250px; margin-top: 150px; transition: margin-left 0.3s ease;">
       <%- body %>
     </main>
   </div>

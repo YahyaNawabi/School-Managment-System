@@ -1,92 +1,115 @@
 const express = require('express');
 const path = require('path');
-// const expressLayouts = require('express-ejs-layouts'); // Removed to avoid conflict
-const app = express();
 const ejsmate = require('ejs-mate'); // Ensure this is required
+const session = require('express-session');
+const app = express();
 const port = 8080;
-const method = require('method-override');
+
+// Set up view engine with ejs-mate
+app.engine('ejs', ejsmate);
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middleware to parse urlencoded form data
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware to parse JSON body data
+app.use(express.json());
+
+// Session middleware setup
+app.use(session({
+    secret: 'your_secret_key', // replace with a strong secret in production
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Middleware to protect routes except /login and static files
+app.use((req, res, next) => {
+    if (req.session && req.session.user) {
+        next();
+    } else {
+        if (req.path === '/login' || req.path === '/logout' || req.path.startsWith('/public') || req.path.startsWith('/css') || req.path.startsWith('/js')) {
+            next();
+        } else {
+            res.redirect('/login');
+        }
+    }
+});
+
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// GET login page
+app.get('/login', (req, res) => {
+    res.render('login', { error: null });
+});
+
+// POST login handler
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    // Hardcoded user for demo purposes
+    const validUser = 'admin';
+    const validPass = 'password';
+
+    if (username === validUser && password === validPass) {
+        req.session.user = username;
+        res.redirect('/');
+    } else {
+        res.render('login', { error: 'Invalid username or password' });
+    }
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login');
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-// app.use(expressLayouts); // Removed to avoid conflict
-
-// Set EJS as the templating engine and configure the layout
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views')); // Set views directory
-app.set('layout', 'layout/boilerplate');
-app.engine('ejs', ejsmate);
-app.use(method('_method')); // Use method-override middleware
-
-
-app.get('/', (req, res) => {
-    res.render('index');
-})
-
-
-
-
-
-// student data
+// Sample student data (added missing variable)
 const student = [
-    {
-        id: 1,
-        name:"Zubir",
-        last:"khan",
-        age : 19
-    },
-    {
-        id: 2,
-        name:"Munir",
-        last:"khan",
-        age : 20
-    },
-    {
-        id: 3,
-        name:"Yahya",
-        last:"khan",
-        age : 20
-    },
-    {
-        id: 4,
-        name:"Jamil",
-        last:"khan",
-        age : 23
-    }
-]
+    { id: 1, name: "Zubir", last: "Khan", age: 15 },
+    { id: 2, name: "Munir", last: "Khan", age: 16 },
+    { id: 3, name: "Yahya", last: "Khan", age: 17 },
+    { id: 4, name: "Jamil", last: "Khan", age: 18 }
+];
 
-app.get("/student/allStudents",(req,res)=>{
-    res.render("student/allstudents",{students:student});
-})
+// Initialize marksEntries array (added missing variable)
+const marksEntries = [];
 
-app.get("/student/create", (req, res) => {
-    res.render("student/create", { student });
-});
-
-app.post("/student/create", (req, res) => {
-    const { id, name, last, age } = req.body;
-    const newStudent = {
-        id: id,
-        name: name,
-        last: last,
-        age: age
-    };
-    student.push(newStudent);
-    res.redirect("/student/create"); // Redirect to GET route after adding student
+// Add root route to render index page
+app.get("/", (req, res) => {
+    res.render("index");
 });
 
 app.get("/student/attendance", (req, res) => {
-    res.render("student/attendance", { students: student });
+    res.render("student/attendance", { 
+        students: student,
+        attendanceRecords: studentAttendanceRecords
+    });
 });
 
 app.get("/student/gradesReports", (req, res) => {
     res.render("student/gradesReports", { students: student });
+});
+
+app.get("/student/allStudents", (req, res) => {
+    res.render("student/allStudents", { students: student });
+});
+
+app.get("/student/create", (req, res) => {
+    res.render("student/create");
+});
+
+app.post("/student/create", (req, res) => {
+    const { id, name, last, age } = req.body;
+    const newStudent = { id, name, last, age };
+    student.push(newStudent);
+    res.redirect("/student/allStudents");
 });
 
 // student data end
@@ -145,7 +168,10 @@ app.post("/teacher/addTeacher", (req, res) => {
 });
 
 app.get("/teacher/attendance", (req, res) => {
-    res.render("teacher/attendance", { teachers: teacher });
+    res.render("teacher/attendance", { 
+        teachers: teacher,
+        attendanceRecords: teacherAttendanceRecords
+    });
 });
 
 app.get("/teacher/classAssignments", (req, res) => {
@@ -165,8 +191,7 @@ app.get("/teacher/reports", (req, res) => {
 const classes = [
     { id: 1, name: "Class 1", teacher: "Zubir Khan", room: "101" },
     { id: 2, name: "Class 2", teacher: "Munir Khan", room: "102" },
-    { id: 3, name: "Class 3", teacher: "Yahya Khan", room: "103" },
-    { id: 4, name: "Class 4", teacher: "Jamil Khan", room: "104" }
+    { id: 3, name: "Class 3", teacher: "Yahya Khan", room: "103" }
 ];
 
 app.get("/classes/allClasses", (req, res) => {
@@ -192,8 +217,7 @@ app.get("/classes/classTimetable", (req, res) => {
 const subjects = [
     { id: 1, name: "Mathematics", assignedClass: "Class 1" },
     { id: 2, name: "Physics", assignedClass: "Class 2" },
-    { id: 3, name: "Chemistry", assignedClass: "Class 3" },
-    { id: 4, name: "Biology", assignedClass: "Class 1" }
+    { id: 3, name: "Chemistry", assignedClass: "Class 3" }
 ];
 
 app.get("/subjects/allSubjects", (req, res) => {
@@ -215,8 +239,7 @@ app.post("/subjects/assignToClass", (req, res) => {
 const exams = [
     { id: 1, subject: "Mathematics", date: "2024-07-01", time: "09:00 AM" },
     { id: 2, subject: "Physics", date: "2024-07-02", time: "10:00 AM" },
-    { id: 3, subject: "Chemistry", date: "2024-07-03", time: "11:00 AM" },
-    { id: 4, subject: "Mathematics", date: "2024-07-04", time: "12:00 PM" }
+    { id: 3, subject: "Chemistry", date: "2024-07-03", time: "11:00 AM" }
 ];
 
 app.get("/exams/examSchedule", (req, res) => {
@@ -238,8 +261,7 @@ app.post("/exams/marksEntry", (req, res) => {
 const reportCards = [
     { studentId: 1, name: "Zubir Khan", subject: "Mathematics", marks: 85, grade: "A" },
     { studentId: 2, name: "Munir Khan", subject: "Physics", marks: 78, grade: "B" },
-    { studentId: 3, name: "Yahya Khan", subject: "Chemistry", marks: 92, grade: "A" },
-    { studentId: 4, name: "Jamil Khan", subject: "Biology", marks: 88, grade: "A" }
+    { studentId: 3, name: "Yahya Khan", subject: "Chemistry", marks: 92, grade: "A" }
 ];
 
 app.get("/exams/reportCards", (req, res) => {
@@ -249,9 +271,8 @@ app.get("/exams/reportCards", (req, res) => {
 // fees data
 const feesReports = [
     { studentId: 1, name: "Zubir Khan", amount: 500, date: "2024-06-01" },
-    { studentId: 2, name: "Munir Khan", amount: 450, date: "2024-06-05" },
-    { studentId: 3, name: "Yahya Khan", amount: 600, date: "2024-06-10" },
-    { studentId: 4, name: "Jamil Khan", amount: 550, date: "2024-06-15" }
+    { id: 2, name: "Munir Khan", amount: 450, date: "2024-06-05" },
+    { id: 3, name: "Yahya Khan", amount: 600, date: "2024-06-10" }
 ];
 
 app.get("/fees/collectFees", (req, res) => {
@@ -273,8 +294,7 @@ app.get("/fees/feesReport", (req, res) => {
 const books = [
     { id: 1, title: "Mathematics 101", author: "John Doe", copies: 5 },
     { id: 2, title: "Physics Fundamentals", author: "Jane Smith", copies: 3 },
-    { id: 3, title: "Chemistry Basics", author: "Albert Johnson", copies: 4 },
-    { id: 4, title: "Biology Essentials", author: "Mary Brown", copies: 2 }
+    { id: 3, title: "Chemistry Basics", author: "Albert Johnson", copies: 4 }
 ];
 
 const issuedBooks = [];
@@ -307,9 +327,7 @@ app.post("/library/issueReturn", (req, res) => {
 // events data
 const notices = [
     { id: 1, title: "School Closed", date: "2024-06-15", content: "School will be closed for summer break." },
-    { id: 2, title: "Parent-Teacher Meeting", date: "2024-06-20", content: "Meeting scheduled in the auditorium." },
-    { id: 3, title: "Exam Schedule", date: "2024-06-25", content: "Exams will start from June 25th." },
-    { id: 4, title: "Sports Day", date: "2024-07-01", content: "Annual sports day will be held on July 1st." }
+    { id: 2, title: "Parent-Teacher Meeting", date: "2024-06-20", content: "Meeting scheduled in the auditorium." }
 ];
 
 app.get("/events/noticeBoard", (req, res) => {
@@ -323,22 +341,17 @@ app.get("/events/calendar", (req, res) => {
 // users data
 const admins = [
     { id: 1, name: "Admin One", email: "admin1@example.com" },
-    { id: 2, name: "Admin Two", email: "admin2@example.com" },
+    { id: 2, name: "Admin Two", email: "admin2@example.com" }
 ];
 
 const staffs = [
     { id: 1, name: "Staff One", position: "Clerk" },
-    { id: 2, name: "Staff Two", position: "Accountant" },
-    { id: 3, name: "Staff Three", position: "Librarian" },
-    { id: 4, name: "Staff Four", position: "Security" },
-    { id: 5, name: "Staff Five", position: "Janitor" }
+    { id: 2, name: "Staff Two", position: "Accountant" }
 ];
 
 const parents = [
     { id: 1, name: "Parent One", childName: "Zubir Khan", contact: "123-456-7890" },
-    { id: 2, name: "Parent Two", childName: "Munir Khan", contact: "987-654-3210" },
-    { id: 3, name: "Parent Three", childName: "Yahya Khan", contact: "555-555-5555" },
-    { id: 4, name: "Parent Four", childName: "Jamil Khan", contact: "444-444-4444" }
+    { id: 2, name: "Parent Two", childName: "Munir Khan", contact: "987-654-3210" }
 ];
 
 app.get("/users/admins", (req, res) => {
@@ -356,16 +369,12 @@ app.get("/users/parents", (req, res) => {
 // transportation data
 const routes = [
     { id: 1, name: "Route 1", stops: ["Stop A", "Stop B", "Stop C"] },
-    { id: 2, name: "Route 2", stops: ["Stop D", "Stop E", "Stop F"] },
-    { id: 3, name: "Route 3", stops: ["Stop G", "Stop H", "Stop I"] },
-    { id: 4, name: "Route 4", stops: ["Stop J", "Stop K", "Stop L"] }
+    { id: 2, name: "Route 2", stops: ["Stop D", "Stop E", "Stop F"] }
 ];
 
 const vehicles = [
     { id: 1, type: "Bus", driver: "Driver One", capacity: 40 },
-    { id: 2, type: "Van", driver: "Driver Two", capacity: 15 },
-    { id: 3, type: "SUV", driver: "Driver Three", capacity: 7 },
-    { id: 4, type: "Truck", driver: "Driver Four", capacity: 2 }
+    { id: 2, type: "Van", driver: "Driver Two", capacity: 15 }
 ];
 
 app.get("/transportation/routes", (req, res) => {
@@ -378,9 +387,8 @@ app.get("/transportation/vehicles", (req, res) => {
 
 // mySection data
 const user = {
-    name: "Yahya",
-    last: "Khan",
-    email: "yahya.khan@example.com",
+    name: "Yahya Khan",
+    email: "Yahya.khan@example.com",
     role: "Teacher"
 };
 
@@ -390,4 +398,86 @@ app.get("/mySection/profile", (req, res) => {
 
 app.get("/mySection/settings", (req, res) => {
     res.render("mySection/settings");
+});
+
+// Search route
+app.get("/search", (req, res) => {
+    const query = req.query.q ? req.query.q.toLowerCase() : "";
+
+    // Search students by id, name, or last name
+    const matchedStudents = student.filter(s =>
+        s.id.toString() === query ||
+        s.name.toLowerCase().includes(query) ||
+        s.last.toLowerCase().includes(query)
+    );
+
+    // Search teachers by id, name, last name, or subject
+    const matchedTeachers = teacher.filter(t =>
+        t.id.toString() === query ||
+        t.name.toLowerCase().includes(query) ||
+        t.last.toLowerCase().includes(query) ||
+        (t.subject && t.subject.toLowerCase().includes(query))
+    );
+
+    // Search books by id, title, or author
+    const matchedBooks = books.filter(b =>
+        b.id.toString() === query ||
+        b.title.toLowerCase().includes(query) ||
+        b.author.toLowerCase().includes(query)
+    );
+
+    res.render("searchResults", {
+        query: req.query.q,
+        students: matchedStudents,
+        teachers: matchedTeachers,
+        books: matchedBooks
+    });
+});
+
+// In-memory attendance records
+const studentAttendanceRecords = {};
+const teacherAttendanceRecords = {};
+
+// POST route to handle student attendance submission
+app.post("/student/attendance", (req, res) => {
+    const presentStudentIds = req.body.attendance || [];
+    // Normalize to array
+    const presentIds = Array.isArray(presentStudentIds) ? presentStudentIds : [presentStudentIds];
+
+    // Update attendance records
+    student.forEach(s => {
+        studentAttendanceRecords[s.id] = presentIds.includes(s.id.toString());
+    });
+
+    res.redirect("/student/attendance");
+});
+
+// POST route to handle teacher attendance submission
+app.post("/teacher/attendance", (req, res) => {
+    const presentTeacherIds = req.body.attendance || [];
+    // Normalize to array
+    const presentIds = Array.isArray(presentTeacherIds) ? presentTeacherIds : [presentTeacherIds];
+
+    // Update attendance records
+    teacher.forEach(t => {
+        teacherAttendanceRecords[t.id] = presentIds.includes(t.id.toString());
+    });
+
+    res.redirect("/teacher/attendance");
+});
+
+// GET route to render student attendance with attendance status
+app.get("/student/attendance", (req, res) => {
+    res.render("student/attendance", { 
+        students: student,
+        attendanceRecords: studentAttendanceRecords
+    });
+});
+
+// GET route to render teacher attendance with attendance status
+app.get("/teacher/attendance", (req, res) => {
+    res.render("teacher/attendance", { 
+        teachers: teacher,
+        attendanceRecords: teacherAttendanceRecords
+    });
 });

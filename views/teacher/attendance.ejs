@@ -1,25 +1,32 @@
 <% layout('layout/boilerplate') %>
 
-<div class="container">
+<div class="container mt-4">
     <h1>Teacher Attendance</h1>
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Teacher ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Date</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (let teacher of teachers) { %>
-            <tr>
-              <td><%= teacher.id %></td>
-              <td><%= teacher.name %> <%= teacher.last %></td>
-              <td><%= new Date().toLocaleDateString() %></td>
-              <td>Present</td>
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
+    <form action="/teacher/attendance" method="POST">
+        <table class="table table-bordered table-hover mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>Teacher ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Present</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% teachers.forEach(teacher => { %>
+                    <tr>
+                        <td><%= teacher.id %></td>
+                        <td><%= teacher.name %> <%= teacher.last %></td>
+                        <td><%= new Date().toLocaleDateString() %></td>
+                        <td class="text-center">
+                            <input type="checkbox" style="accent-color: black;" name="attendance" value="<%= teacher.id %>" <%= attendanceRecords && attendanceRecords[teacher.id] ? 'checked' : '' %> />
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-dark">Submit Attendance</button>
+        </div>
+    </form>
 </div>

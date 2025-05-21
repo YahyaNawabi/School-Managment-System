@@ -1,16 +1,21 @@
 <% layout('layout/boilerplate') %>
 
 <div class="container">
-  <h1>Collect Fees</h1>
-  <form action="/fees/collectFees" method="POST">
-    <div class="mb-3">
-      <label for="studentId" class="form-label">Student ID</label>
-      <input type="number" class="form-control" id="studentId" name="studentId" required>
+  <h3 class="text-center mb-4">Collect Fees</h3>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="p-4 " style="width: 100%; max-width: 400px;">
+      <form action="/fees/collectFees" method="POST">
+        <div class="mb-3">
+          <label for="studentId" class="form-label">Student ID</label>
+          <input type="number" class="form-control" id="studentId" name="studentId" required>
+        </div>
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="amount" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-dark w-100">Collect</button>
+      </form>
     </div>
-    <div class="mb-3">
-      <label for="amount" class="form-label">Amount</label>
-      <input type="number" class="form-control" id="amount" name="amount" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Collect</button>
-  </form>
+  </div>
+
 </div>

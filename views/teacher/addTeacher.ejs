@@ -1,28 +1,37 @@
 <% layout('layout/boilerplate') %>
 
 <div class="container">
-  <h1>Add New Teacher</h1>
-  <form action="/teacher/addTeacher" method="POST">
-    <div class="mb-3">
-      <label for="id" class="form-label">Teacher ID</label>
-      <input type="number" class="form-control" id="id" name="id" required>
+  <div class="row">
+    <h1>Add New Teacher</h1>
+    <div class="card col-12 col-md-8 mx-auto">
+      <div class="card-body">
+        <form action="/teacher/addTeacher" method="POST">
+          <div class="row">
+
+            <div class="mb-3 col-12 col-md-6">
+              <label for="id" class="form-label">Teacher ID</label>
+              <input type="number" class="form-control" id="id" name="id" required>
+            </div>
+            <div class="mb-3 col-12 col-md-6">
+              <label for="name" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3 col-12 col-md-6">
+              <label for="last" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="last" name="last" required>
+            </div>
+            <div class="mb-3 col-12 col-md-6">
+              <label for="age" class="form-label">Age</label>
+              <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="mb-3 col-12 ">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" class="form-control" id="subject" name="subject" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-dark w-100">Add Teacher</button>
+        </form>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="name" class="form-label">First Name</label>
-      <input type="text" class="form-control" id="name" name="name" required>
-    </div>
-    <div class="mb-3">
-      <label for="last" class="form-label">Last Name</label>
-      <input type="text" class="form-control" id="last" name="last" required>
-    </div>
-    <div class="mb-3">
-      <label for="age" class="form-label">Age</label>
-      <input type="number" class="form-control" id="age" name="age" required>
-    </div>
-    <div class="mb-3">
-      <label for="subject" class="form-label">Subject</label>
-      <input type="text" class="form-control" id="subject" name="subject" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Teacher</button>
-  </form>
+  </div>
 </div>
