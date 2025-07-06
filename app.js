@@ -23,48 +23,8 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Middleware to protect routes except /login and static files
-app.use((req, res, next) => {
-    if (req.session && req.session.user) {
-        next();
-    } else {
-        if (req.path === '/login' || req.path === '/logout' || req.path.startsWith('/public') || req.path.startsWith('/css') || req.path.startsWith('/js')) {
-            next();
-        } else {
-            res.redirect('/login');
-        }
-    }
-});
-
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
-
-// GET login page
-app.get('/login', (req, res) => {
-    res.render('login', { error: null });
-});
-
-// POST login handler
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    // Hardcoded user for demo purposes
-    const validUser = 'admin';
-    const validPass = 'password';
-
-    if (username === validUser && password === validPass) {
-        req.session.user = username;
-        res.redirect('/');
-    } else {
-        res.render('login', { error: 'Invalid username or password' });
-    }
-});
-
-// Logout route
-app.get('/logout', (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/login');
-    });
-});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
@@ -101,12 +61,22 @@ app.get("/student/allStudents", (req, res) => {
     res.render("student/allStudents", { students: student });
 });
 
+app.get("/student/manage", (req, res) => {
+    res.render("student/manage", { students: student });
+});
+app.get("/student/show/:id", (req, res) => {
+    const {id} = req.params;
+    const std = student.find((std) => std.id === Number(id));
+    res.render("student/show", { student: std });
+});
+
 app.get("/student/create", (req, res) => {
     res.render("student/create");
 });
 
 app.post("/student/create", (req, res) => {
-    const { id, name, last, age } = req.body;
+    let { id, name, last, age } = req.body;
+    id = Number(id);
     const newStudent = { id, name, last, age };
     student.push(newStudent);
     res.redirect("/student/allStudents");
