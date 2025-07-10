@@ -21,10 +21,23 @@
                 <td><%= student.name %></td>
                 <td><%= student.last %></td>
                 <td><%= student.age %></td>
-                <td><a href="/student/show/<%= student.id %>/"><button class=" btn btn-dark">Show</button></a></td>
+                <td class="d-flex"><a href="/student/show/<%= student.id %>/"><button class=" btn btn-dark me-2">Show</button></a>
+                <a href="/student/edit/<%= student.id %>/"><button class=" btn btn-dark me-2">Edit</button></a>
+                <form action="/student/delete/<%= student.id %>?_method=DELETE" method="post">
+                  <button class="btn btn-dark">Delete</button>
+                </form></td>
               </tr>
             <% } %>
           </tbody>
         </table>
+      </div>
     </div>
+ <!-- 100 %‑wide wrapper -->
+<div class="w-100 d-flex justify-content-center">
+  <!-- 50 %‑wide button, label centered -->
+  <a href="/student/create" class="btn btn-dark w-50 text-center">
+    + Add Student
+  </a>
 </div>
+
+    

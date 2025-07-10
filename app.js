@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const ejsmate = require('ejs-mate'); // Ensure this is required
 const session = require('express-session');
+const methodOverride = require('method-override');
+const mysql = require('mysql2'); // Ensure this is required
 const app = express();
 const port = 8080;
 
@@ -30,13 +32,14 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-// Sample student data (added missing variable)
-const student = [
-    { id: 1, name: "Zubir", last: "Khan", age: 15 },
-    { id: 2, name: "Munir", last: "Khan", age: 16 },
-    { id: 3, name: "Yahya", last: "Khan", age: 17 },
-    { id: 4, name: "Jamil", last: "Khan", age: 18 }
-];
+app.use(methodOverride('_method'));
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'schoolms',
+    password: 'yah123'
+})
 
 // Initialize marksEntries array (added missing variable)
 const marksEntries = [];
@@ -46,28 +49,144 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+
+
+
+
+
+// GET route for /student/attendance - fetch students from DB first
 app.get("/student/attendance", (req, res) => {
-    res.render("student/attendance", { 
-        students: student,
-        attendanceRecords: studentAttendanceRecords
+    const sql = "SELECT * FROM student";
+    connection.query(sql, (err, students) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database error");
+        }
+        // You may want to fetch attendance records for today as well if needed
+        res.render("student/attendance", { 
+            students,
+            attendanceRecords: {} // optionally fetch actual attendance here
+        });
     });
 });
+
+// POST route for /student/attendance - save attendance to DB
+app.post("/student/attendance", (req, res) => {
+    const presentStudentIds = req.body.attendance || [];
+    const presentIds = Array.isArray(presentStudentIds) ? presentStudentIds : [presentStudentIds];
+    const today = new Date().toISOString().slice(0, 10);
+
+    const sqlStudents = "SELECT id FROM student";
+
+    connection.query(sqlStudents, (err, students) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database error");
+        }
+
+        const attendanceData = students.map(student => {
+            const isPresent = presentIds.includes(student.id.toString()) ? 1 : 0;
+            return [student.id, today, isPresent];
+        });
+
+        const sqlAttendance = `
+            INSERT INTO student_attendance (student_id, attendance_date, is_present)
+            VALUES ?
+            ON DUPLICATE KEY UPDATE is_present = VALUES(is_present)
+        `;
+
+        connection.query(sqlAttendance, [attendanceData], (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send("Failed to save attendance");
+            }
+            res.redirect("/student/attendance");
+        });
+    });
+});
+
+  
+  
+  
+
+  
+
 
 app.get("/student/gradesReports", (req, res) => {
     res.render("student/gradesReports", { students: student });
 });
 
 app.get("/student/allStudents", (req, res) => {
-    res.render("student/allStudents", { students: student });
+    const sql = "select *from student";
+    connection.query(sql, (err, results)=>{
+        res.render("student/allStudents", { students: results });
+    })
 });
 
 app.get("/student/manage", (req, res) => {
-    res.render("student/manage", { students: student });
+    const sql = "select *from student";
+    connection.query(sql, (err, results)=>{
+        res.render("student/manage", { students: results });
+    })
 });
+
 app.get("/student/show/:id", (req, res) => {
     const {id} = req.params;
-    const std = student.find((std) => std.id === Number(id));
-    res.render("student/show", { student: std });
+    const sql = "select * from student where id = ?";
+    connection.query(sql, [id], (err, results)=>{
+        res.render("student/show", { student: results[0] });
+    })
+});
+
+app.get("/student/fullinfo/:id", (req, res) => {
+    const { id } = req.params;
+    const sql = `
+        SELECT 
+            student.id,
+            student.name,
+            student.last,
+            student.age,
+            student_details.fathername,
+            student_details.contactno,
+            student_details.email,
+            student_details.address,
+            student_details.class,
+            student_details.dob,
+            student_details.gender
+        FROM student
+        JOIN student_details ON student.id = student_details.student_id
+        WHERE student.id = ?
+    `;
+    connection.query(sql, [id], (err, results) => {
+        res.render("student/fullinfo", { student: results[0] });
+    });
+});
+
+
+app.get("/student/edit/:id", (req, res) => {
+    const {id} = req.params;
+    const std = student.find(s => s.id == id); 
+    res.render("student/edit", {student: std});
+});
+app.post("/student/edit/:id", (req, res) => {
+    const {id} = req.params;
+    const {name,last,age} = req.body;
+    const std = student.find(s => s.id == id); 
+    if (std){
+        std.name = name;
+        std.last = last;
+        std.age = age;
+    }
+    res.redirect("/student/manage");
+});
+
+app.delete("/student/delete/:id", (req, res) => {
+    const {id} = req.params;
+    const index = student.findIndex(s => s.id == id); 
+    if (index !== -1){
+         student.splice(index, 1);
+        }
+    res.redirect("/student/manage");
 });
 
 app.get("/student/create", (req, res) => {
@@ -76,10 +195,10 @@ app.get("/student/create", (req, res) => {
 
 app.post("/student/create", (req, res) => {
     let { id, name, last, age } = req.body;
-    id = Number(id);
-    const newStudent = { id, name, last, age };
-    student.push(newStudent);
-    res.redirect("/student/allStudents");
+    const sql = "insert into student (id, name, last, age) values(?, ?, ?, ?)";
+    connection.query(sql, [id, name, last, age], (err, results) => {
+        res.redirect("/student/manage");
+    })
 });
 
 // student data end
