@@ -161,7 +161,7 @@ app.get("/student/fullinfo/:id", (req, res) => {
         res.render("student/fullinfo", { student: results[0] });
     });
 });
-
+ 
 
 app.get("/student/edit/:id", (req, res) => {
     const {id} = req.params;
