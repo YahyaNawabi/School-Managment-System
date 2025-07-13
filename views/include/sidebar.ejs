@@ -1,6 +1,22 @@
 <!-- Sidebar -->
 <aside id="sidebar" class="bg-dark text-white flex-shrink-0 p-3" style="width: 250px; margin-top: 90px; transition: transform 0.3s ease;">
   <ul class="nav nav-pills flex-column mb-auto">
+
+     <!-- Users -->
+    <li class="nav-item mt-2">
+      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#users-collapse">
+        <span><i class="fas fa-users me-2"></i>Users</span>
+        <i class="fas fa-caret-down"></i>
+      </a>
+      <div class="collapse" id="users-collapse">
+        <ul class="nav flex-column ps-4">
+          <li><a href="/users/admins" class="nav-link text-white">Admins</a></li>
+          <li><a href="/users/staff" class="nav-link text-white">Staff</a></li>
+          <li><a href="/users/parents" class="nav-link text-white">Parents</a></li>
+        </ul>
+      </div>
+    </li>
+
     <!-- Student Section -->
     <li class="nav-item">
       <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#students-collapse">
@@ -59,7 +75,6 @@
       <div class="collapse" id="subjects-collapse">
         <ul class="nav flex-column ps-4">
           <li><a href="/subjects/allSubjects" class="nav-link text-white">All Subjects</a></li>
-          <li><a href="/subjects/assignToClass" class="nav-link text-white">Assign to Class</a></li>
         </ul>
       </div>
     </li>
@@ -121,20 +136,6 @@
       </div>
     </li>
 
-    <!-- Users -->
-    <li class="nav-item mt-2">
-      <a class="nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#users-collapse">
-        <span><i class="fas fa-users me-2"></i>Users</span>
-        <i class="fas fa-caret-down"></i>
-      </a>
-      <div class="collapse" id="users-collapse">
-        <ul class="nav flex-column ps-4">
-          <li><a href="/users/admins" class="nav-link text-white">Admins</a></li>
-          <li><a href="/users/staff" class="nav-link text-white">Staff</a></li>
-          <li><a href="/users/parents" class="nav-link text-white">Parents</a></li>
-        </ul>
-      </div>
-    </li>
   </ul>
 
   </ul>

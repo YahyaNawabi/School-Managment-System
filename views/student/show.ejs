@@ -1,17 +1,26 @@
 <% layout('layout/boilerplate') %>
 
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-      <div class="card shadow-sm border-0 rounded-4">
-        <div class="card-body text-center">
-          <h4 class="card-title fw-semibold mb-3"><%= student.name %> <%= student.last %></h4>
-          <h6 class="text-muted mb-3">ID: <%= student.id %></h6>
-          <h6 class="text-muted mb-4">Age: <%= student.age %></h6>
-
-          <a href="/student/manage" class="btn btn-dark w-100">Back to Students</a>
-        </div>
-      </div>
+<div class="container mt-5">
+  <div class="card shadow rounded-3">
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0">Student Details</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>ID:</strong> <%= student.id %></li>
+        <li class="list-group-item"><strong>First Name:</strong> <%= student.name %></li>
+        <li class="list-group-item"><strong>Last Name:</strong> <%= student.last %></li>
+        <li class="list-group-item"><strong>Father's Name:</strong> <%= student.fathername %></li>
+        <li class="list-group-item"><strong>Contact Number:</strong> <%= student.contactno %></li>
+        <li class="list-group-item"><strong>Email:</strong> <%= student.email %></li>
+        <li class="list-group-item"><strong>Address:</strong> <%= student.address %></li>
+        <li class="list-group-item"><strong>Class:</strong> <%= student.class_id %></li>
+        <li class="list-group-item"><strong>Date of Birth:</strong> <%= student.dob %></li>
+        <li class="list-group-item"><strong>Gender:</strong> <%= student.gender %></li>
+      </ul>
+    </div>
+    <div class="card-footer text-end">
+      <a href="/student/manage" class="btn btn-dark">Back to List</a>
     </div>
   </div>
 </div>

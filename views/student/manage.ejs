@@ -4,7 +4,7 @@
     <h1>Manage Students</h1>
     <div class="table-responsive">
       <table class="table table-hover">
-          <thead>
+          <thead class="table-dark">
             <tr>
               <th scope="col">ID</th>
               <th scope="col">First Name</th>
@@ -23,9 +23,10 @@
                 <td><%= student.age %></td>
                 <td class="d-flex"><a href="/student/show/<%= student.id %>/"><button class=" btn btn-dark me-2">Show</button></a>
                 <a href="/student/edit/<%= student.id %>/"><button class=" btn btn-dark me-2">Edit</button></a>
-                <form action="/student/delete/<%= student.id %>?_method=DELETE" method="post">
-                  <button class="btn btn-dark">Delete</button>
-                </form></td>
+                <form method="POST" action="/student/delete/<%= student.id %>?_method=DELETE">
+                  <button type="submit" class="btn btn-dark">Delete</button>
+                </form>
+                </td>
               </tr>
             <% } %>
           </tbody>

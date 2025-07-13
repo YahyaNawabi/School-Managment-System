@@ -1,0 +1,30 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+  <h1>Issued / Returned Books</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Record ID</th>
+        <th>Book Title</th>
+        <th>Student Name</th>
+        <th>Issue Date</th>
+        <th>Return Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let record of issuedBooks) { %>
+        <tr>
+          <td><%= record.id %></td>
+          <td><%= record.title %></td>
+          <td><%= record.studentName %></td>
+          <td><%= record.issue_date ? record.issue_date.toISOString().split('T')[0] : '' %></td>
+          <td><%= record.return_date ? record.return_date.toISOString().split('T')[0] : '' %></td>
+          <td><%= record.returned ? 'Returned' : 'Issued' %></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+     <a href="/library/booksList"><button class="btn btn-dark">Back</button></a>
+</div>

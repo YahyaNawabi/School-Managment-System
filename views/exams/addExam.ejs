@@ -1,0 +1,28 @@
+<% layout('layout/boilerplate') %>
+
+<div class="container">
+  <h1>Add New Exam</h1>
+  <form action="/exams/addExam" method="POST">
+    <div class="mb-3">
+      <label for="subject" class="form-label">Subject</label>
+      <select id="subject" name="subject_id" class="form-control" required>
+        <% for (let subject of subjects) { %>
+          <option value="<%= subject.id %>"><%= subject.name %></option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="exam_date" class="form-label">Exam Date</label>
+      <input type="date" id="exam_date" name="exam_date" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="exam_time" class="form-label">Exam Time</label>
+      <input type="time" id="exam_time" name="exam_time" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-dark">Add Exam</button>
+    <a href="/exams/examSchedule"><button  class="btn btn-dark">Back</button></a>
+  </form>
+</div>

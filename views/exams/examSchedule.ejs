@@ -1,25 +1,26 @@
 <% layout('layout/boilerplate') %>
 
 <div class="container">
-    <h1>Exam Schedule</h1>
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Exam ID</th>
-            <th>Subject</th>
-            <th>Date</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (let exam of exams) { %>
-            <tr>
-              <td><%= exam.id %></td>
-              <td><%= exam.subject %></td>
-              <td><%= exam.date %></td>
-              <td><%= exam.time %></td>
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
+  <h1>Exam Schedule</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Exam ID</th>
+        <th>Subject</th>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let exam of exams) { %>
+        <tr>
+          <td><%= exam.id %></td>
+          <td><%= exam.subject %></td>
+          <td><%= exam.date.toISOString().split('T')[0] %></td>
+          <td><%= exam.time %></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <a href="/exams/addExam"><button class="btn btn-dark">Add New Exam</button></a>
 </div>

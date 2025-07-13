@@ -1,23 +1,25 @@
 <% layout('layout/boilerplate') %>
 
 <div class="container">
-    <h1>All Subjects</h1>
-    <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Subject ID</th>
-            <th>Subject Name</th>
-            <th>Assigned Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (let subject of subjects) { %>
-            <tr>
-              <td><%= subject.id %></td>
-              <td><%= subject.name %></td>
-              <td><%= subject.assignedClass %></td>
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
+  <h1>All Subjects</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Subject ID</th>
+        <th>Subject Name</th>
+        <th>Assigned Class</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let subject of subjects) { %>
+        <tr>
+          <td><%= subject.id %></td>
+          <td><%= subject.name %></td>
+          <td><%= subject.assignedClass || 'None' %></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <a href="/subjects/add" class="btn btn-dark">Add Subject</a>
+  <a href="/subjects/assignToClass" class="btn btn-dark">Assign Subject to Class</a>
 </div>
